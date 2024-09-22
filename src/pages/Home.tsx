@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -13,10 +12,10 @@ const Home = () => {
       <div className="mt-5">
         <h2>Why Choose Us?</h2>
         <ul className="list-unstyled">
-          <li>🛒 Wide selection of products</li>
-          <li>💸 Attractive prices</li>
-          <li>🚚 Fast delivery</li>
-          <li>💯 Satisfaction guarantee</li>
+          <li>Wide selection of products</li>
+          <li> Attractive prices</li>
+          <li> Fast delivery</li>
+          <li> Satisfaction guarantee</li>
         </ul>
       </div>
     </div>

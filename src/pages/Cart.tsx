@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import CartContext from "../context/CartContext";
+import { useCart } from "../context/useCart";
+import { CartItem } from "../types/product";
 
 const Cart = () => {
-  const { cart, removeFromCart, clearCart } = useContext(CartContext); // Zmiana 'cartItems' na 'cart'
+  const { cart, removeFromCart, clearCart } = useCart();
 
   const totalPrice = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total: number, item: CartItem) => total + item.price * item.quantity,
     0
   );
 

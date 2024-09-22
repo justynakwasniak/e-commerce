@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CartButton = ({ itemCount }) => {
+// Definiujemy typy właściwości komponentu
+interface CartButtonProps {
+  itemCount: number;
+}
+
+const CartButton: React.FC<CartButtonProps> = ({ itemCount }) => {
   return (
     <Link to="/cart" className="btn btn-primary position-relative">
       Shopping Cart

@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          Moja Aplikacja
+          The Everyday E-Shop
         </Link>
         <button
           className="navbar-toggler"
@@ -21,19 +21,15 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Strona Główna
-              </Link>
-            </li>
+            <li className="nav-item"></li>
             <li className="nav-item">
               <Link className="nav-link" to="/products">
-                Produkty
+                Products
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/cart">
-                Koszyk
+                Shopping Cart
               </Link>
             </li>
           </ul>

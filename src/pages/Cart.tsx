@@ -11,9 +11,9 @@ const Cart = () => {
 
   return (
     <div className="container">
-      <h2>Twój Koszyk</h2>
+      <h2>Your Cart</h2>
       {cart.length === 0 ? (
-        <p>Koszyk jest pusty.</p>
+        <p>Cart is empty</p>
       ) : (
         <>
           <ul className="list-group mb-3">
@@ -25,21 +25,21 @@ const Cart = () => {
                 <div>
                   <h5>{item.title}</h5>
                   <p>
-                    Cena: ${item.price.toFixed(2)} x {item.quantity}
+                    Price: ${item.price.toFixed(2)} x {item.quantity}
                   </p>
                 </div>
                 <button
                   className="btn btn-danger"
                   onClick={() => removeFromCart(item.id)}
                 >
-                  Usuń
+                  Delete
                 </button>
               </li>
             ))}
           </ul>
-          <h4>Łączna cena: ${totalPrice.toFixed(2)}</h4>
+          <h4>Final price: ${totalPrice.toFixed(2)}</h4>
           <button className="btn btn-danger" onClick={clearCart}>
-            Wyczyść koszyk
+            Clear cart
           </button>
         </>
       )}

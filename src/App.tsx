@@ -10,15 +10,16 @@ import { CartProvider } from "./context/CartContext";
 function App() {
   return (
     <Router>
-      <CartProvider>{/* reszta kodu */}</CartProvider>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
-      <Footer />
+      <CartProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+        <Footer />
+      </CartProvider>
     </Router>
   );
 }

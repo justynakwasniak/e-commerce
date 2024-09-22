@@ -1,6 +1,12 @@
 import React from "react";
+import { Product } from "../types/product"; // Importuj interfejs Product
 
-const ProductCard = ({ product, onAddToCart }) => {
+interface ProductCardProps {
+  product: Product; // Typ produktu
+  onAddToCart: (product: Product & { quantity: number }) => void; // Typ funkcji onAddToCart
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
   return (
     <div className="card mb-4" style={{ width: "18rem" }}>
       <img src={product.image} className="card-img-top" alt={product.title} />
@@ -9,9 +15,9 @@ const ProductCard = ({ product, onAddToCart }) => {
         <p className="card-text">${product.price.toFixed(2)}</p>
         <button
           className="btn btn-primary"
-          onClick={() => onAddToCart({ ...product, quantity: 1 })}
+          onClick={() => onAddToCart({ ...product, quantity: 1 })} // Dodaj do koszyka
         >
-          Dodaj do koszyka
+          Add to cart
         </button>
       </div>
     </div>

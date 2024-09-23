@@ -1,0 +1,39 @@
+:root {
+  --primary-black: #1b1b1b;
+  --primary-turquoise: #39a78d;
+  --primary-gray: #f5f5f5;
+}
+
+body {
+  font-family: "Roboto", monospace;
+  background-color: var(--primary-black);
+  color: var(--primary-gray);
+}
+.navbar {
+  background-color: var(--primary-black) !important;
+  color: var(--primary-gray) !important;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: var(--primary-gray) !important;
+}
+
+.navbar .navbar-toggler {
+  border-color: var(--primary-gray) !important;
+}
+
+.eshop-first {
+  max-width: 100%;
+  height: auto;
+}
+footer {
+  color: var(--primary-gray);
+}
+.btn {
+  background-color: var(--primary-turquoise);
+  color: var(--primary-gray);
+}
+.btn:hover {
+  background-color: #17c79e;
+}

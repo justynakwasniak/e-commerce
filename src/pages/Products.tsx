@@ -16,11 +16,15 @@ const Products = () => {
     <div className="container">
       <div className="row">
         {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onAddToCart={addToCart}
-          />
+          <div className="col-md-3 mb-4" key={product.id}>
+            {" "}
+            {/* 4 kolumny w rzędzie na medium i większych ekranach */}
+            <ProductCard
+              product={product}
+              onAddToCart={addToCart}
+              style={{ maxWidth: "100%" }} // Ustawienia stylu dla karty
+            />
+          </div>
         ))}
       </div>
     </div>

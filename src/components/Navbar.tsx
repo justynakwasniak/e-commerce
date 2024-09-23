@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import "../index.css";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg">
       <div className="container">
         <Link className="navbar-brand" to="/">
           The Everyday E-Shop

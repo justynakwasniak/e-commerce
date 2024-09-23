@@ -6,6 +6,8 @@ import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import { CartProvider } from "./context/CartContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
 
 function App() {
   return (

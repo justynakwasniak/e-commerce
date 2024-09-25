@@ -44,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
         </h5>
         <p className="card-text">${product.price.toFixed(2)}</p>
         <button
-          className="btn btn-primary"
+          className="btn"
           onClick={() => onAddToCart({ ...product, quantity: 1 })}
         >
           Add to cart

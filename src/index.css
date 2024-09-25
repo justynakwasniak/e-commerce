@@ -20,7 +20,8 @@ body {
 }
 
 .navbar .navbar-toggler {
-  border-color: var(--primary-gray) !important;
+  border-color: var(--primary-black) !important;
+  background-color: var(--primary-turquoise) !important;
 }
 
 .eshop-first {
@@ -34,6 +35,19 @@ footer {
   background-color: var(--primary-turquoise);
   color: var(--primary-gray);
 }
-.btn:hover {
+.btn:hover,
+.button.btn:hover {
   background-color: #17c79e;
+}
+.link-mail,
+.link-tel {
+  color: var(--primary-gray);
+  text-decoration: none;
+}
+.link-mail:hover,
+.link-tel:hover {
+  text-decoration: underline; /* Podkreśla link po najechaniu */
+}
+.product-cart {
+  background-color: var(--primary-gray);
 }

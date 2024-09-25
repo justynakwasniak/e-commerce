@@ -15,10 +15,14 @@ const Footer = () => {
             <h5 className="text-uppercase">Contact</h5>
             <ul className="list-unstyled mb-0">
               <li>
-                <a href="#!">Email: kontakt@myshop.pl</a>
+                <a className="link-mail" href="#!">
+                  Email: kontakt@myshop.pl
+                </a>
               </li>
               <li>
-                <a href="#!">Telefon: 123-456-789</a>
+                <a className="link-tel" href="#!">
+                  Telefon: 123-456-789
+                </a>
               </li>
             </ul>
           </div>

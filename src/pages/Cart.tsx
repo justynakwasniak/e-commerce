@@ -19,7 +19,7 @@ const Cart = () => {
           <ul className="list-group mb-3">
             {cart.map((item) => (
               <li
-                className="list-group-item d-flex justify-content-between align-items-center"
+                className="list-group-item d-flex justify-content-between align-items-center product-cart"
                 key={item.id}
               >
                 <div>
@@ -28,17 +28,14 @@ const Cart = () => {
                     Price: ${item.price.toFixed(2)} x {item.quantity}
                   </p>
                 </div>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => removeFromCart(item.id)}
-                >
+                <button className="btn" onClick={() => removeFromCart(item.id)}>
                   Delete
                 </button>
               </li>
             ))}
           </ul>
           <h4>Final price: ${totalPrice.toFixed(2)}</h4>
-          <button className="btn btn-danger" onClick={clearCart}>
+          <button className="btn" onClick={clearCart}>
             Clear cart
           </button>
         </>

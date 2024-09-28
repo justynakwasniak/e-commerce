@@ -19,6 +19,7 @@ const ProductDetails = () => {
     <div className="container">
       <h1>{product.title}</h1>
       <img
+        className="details"
         src={product.image}
         alt={product.title}
         style={{ maxWidth: "300px", height: "auto" }}

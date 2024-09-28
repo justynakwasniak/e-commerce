@@ -1,18 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/useCart"; // Importuj kontekst koszyka
 import "../index.css";
 import eshopLogo from "../assets/logo eshop.webp";
 import { useState } from "react"; // Dodaj import useState
 
 const Navbar = () => {
-  const { cart } = useCart(); // Uzyskaj dostęp do koszyka
-  const itemCount = cart.reduce((total, item) => total + item.quantity, 0); // Oblicz całkowitą ilość produktów
-  const [searchTerm, setSearchTerm] = useState(""); // Dodaj stan dla wyszukiwania
+  const { cart } = useCart();
+  const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate(); // Dodaj useNavigate
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Tu możesz dodać logikę do wyszukiwania produktów, np. przekierowanie do strony wyszukiwania
-    console.log("Szukam:", searchTerm);
+    // Przekieruj do strony produktów z parametrem wyszukiwania
+    navigate(`/products?search=${searchTerm}`);
+    setSearchTerm(""); // Oczyść pole wyszukiwania po przesłaniu
   };
 
   return (
@@ -42,9 +44,9 @@ const Navbar = () => {
           </ul>
           <form className="d-flex" onSubmit={handleSearch}>
             <input
-              className="form-control me-2"
+              className="form-control me-2 search-bar w-100"
               type="search"
-              placeholder="Search"
+              placeholder="Search here"
               aria-label="Search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)} // Ustawienie stanu na wartość pola

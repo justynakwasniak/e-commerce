@@ -34,6 +34,7 @@ footer {
 .btn {
   background-color: var(--primary-turquoise);
   color: var(--primary-gray);
+  border-radius: 50px;
 }
 .btn:hover,
 .button.btn:hover {
@@ -73,5 +74,19 @@ footer {
 .logoEshop {
   height: 90px;
   width: auto;
+  border-radius: 50px;
+}
+.search-bar {
+  border-radius: 50px;
+  background-color: var(--primary-gray);
+  color: var(--primary-black);
+  transition: border-color 0.2s;
+}
+.search-bar:focus {
+  border-color: var(--primary-turquoise); /* Kolor obramowania przy fokusu */
+  outline: none; /* Usuń domyślny outline */
+}
+
+.details {
   border-radius: 50px;
 }

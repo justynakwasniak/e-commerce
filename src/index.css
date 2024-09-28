@@ -51,3 +51,27 @@ footer {
 .product-cart {
   background-color: var(--primary-gray);
 }
+.footer-text {
+  font-size: small;
+}
+.btn-add {
+  background-color: var(--primary-turquoise);
+  color: var(--primary-gray);
+}
+.btn-add:hover {
+  background-color: #17c79e;
+  color: var(--primary-gray);
+}
+.counter {
+  background-color: var(--primary-turquoise);
+  margin-top: 1px;
+  margin-left: 0.5rem;
+}
+.alert-success {
+  text-align: center;
+}
+.logoEshop {
+  height: 90px;
+  width: auto;
+  border-radius: 50px;
+}

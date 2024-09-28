@@ -18,7 +18,11 @@ const ProductDetails = () => {
   return (
     <div className="container">
       <h1>{product.title}</h1>
-      <img src={product.image} alt={product.title} />
+      <img
+        src={product.image}
+        alt={product.title}
+        style={{ maxWidth: "300px", height: "auto" }}
+      />
       <p>{product.description}</p>
       <h3>${product.price}</h3>
     </div>

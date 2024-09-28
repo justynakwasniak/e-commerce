@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import { CartProvider } from "./context/CartContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import "font-awesome/css/font-awesome.css";
 
 function App() {
   return (

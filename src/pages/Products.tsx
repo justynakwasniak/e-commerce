@@ -11,18 +11,19 @@ const Products = () => {
   useEffect(() => {
     getProducts().then((data) => setProducts(data));
   }, []);
-
+  // const filteredProducts = products.filter((product) =>
+  //   product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
   return (
     <div className="container">
-      <div className="row">
+      {/* Dodajemy klasę g-4, aby dodać odstęp między kolumnami */}
+      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5">
         {products.map((product) => (
-          <div className="col-md-3 mb-4" key={product.id}>
-            {" "}
-            {/* 4 kolumny w rzędzie na medium i większych ekranach */}
+          <div className="col" key={product.id}>
             <ProductCard
               product={product}
               onAddToCart={addToCart}
-              style={{ maxWidth: "100%" }} // Ustawienia stylu dla karty
+              style={{ maxWidth: "100%", margin: "0 15px" }} // Dodatkowy styl marginesu
             />
           </div>
         ))}

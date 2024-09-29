@@ -82,7 +82,7 @@ footer {
   margin-top: 1px;
   margin-left: 0.5rem;
 }
-.alert-success {
+.alert {
   text-align: center;
 }
 .logoEshop {
@@ -90,19 +90,41 @@ footer {
   width: auto;
   border-radius: 50px;
 }
+/* Dodaj do swojego pliku CSS */
 .search-bar {
-  border-radius: 50px;
+  border-radius: 50px; /* Zaokrąglone krawędzie */
   background-color: var(--primary-gray);
   color: var(--primary-black);
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background-color 0.2s; /* Dodano przejście dla tła */
+  padding: 10px 20px; /* Dodaj padding dla lepszej estetyki */
+  border: none; /* Dodaj przezroczyste obramowanie */
 }
+
 .search-bar:focus {
-  border-color: var(--primary-turquoise); /* Kolor obramowania przy fokusu */
-  outline: none; /* Usuń domyślny outline */
+  border-color: var(--primary-turquoise);
+  outline: none;
+  background-color: white; /* Zmiana tła na białe przy fokusu */
+  border: none;
+}
+
+.btn-search {
+  border-radius: 50px; /* Zaokrąglone krawędzie */
+  background-color: var(--primary-turquoise); /* Kolor tła przycisku */
+  color: white; /* Kolor tekstu */
+  padding: 10px 20px; /* Padding dla lepszej estetyki */
+  border: none; /* Usuń obramowanie */
+  transition: background-color 0.2s; /* Dodaj efekt przejścia */
+}
+
+.btn-search:hover {
+  background-color: var(
+    --primary-turquoise
+  ); /* Ciemniejszy kolor tła przy najechaniu */
 }
 
 .details {
-  border-radius: 50px;
+  border-radius: 20px;
+  margin-bottom: 20px;
 }
 .icon-home {
   font-size: 50px;
@@ -128,4 +150,23 @@ footer {
   .why-choose-us .col-md-3 {
     margin-bottom: 20px;
   }
+}
+.modal-body {
+  color: var(--primary-black);
+}
+.modal-title {
+  color: var(--primary-black);
+}
+.footer-icon {
+  color: var(--primary-turquoise);
+}
+.form {
+  border: none;
+}
+.form:focus {
+  outline: none;
+}
+input:focus {
+  outline: none; /* Usuwa domyślny outline */
+  box-shadow: none; /* Usuwa cień, który może być dodany przez Bootstrap */
 }

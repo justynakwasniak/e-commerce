@@ -66,7 +66,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
 
         {/* Komunikat o dodaniu produktu do koszyka */}
         {addedToCart && (
-          <div className="alert alert-success mt-2" role="alert">
+          <div className="alert mt-2" role="alert">
             Product added to cart!
           </div>
         )}

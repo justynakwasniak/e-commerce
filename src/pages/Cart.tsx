@@ -17,7 +17,7 @@ const Cart = () => {
 
   // Funkcja do nawigacji do strony płatności
   const handleProceedToPayment = () => {
-    navigate("/payment"); // Zakładamy, że masz trasę "/payment"
+    navigate("/payment");
   };
 
   // Funkcja do zastosowania kodu rabatowego
@@ -87,16 +87,26 @@ const Cart = () => {
           </h4>
 
           <div className="mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter discount code"
-              value={discountCode}
-              onChange={(e) => setDiscountCode(e.target.value)}
-            />
-            <button className="btn btn-add mt-2" onClick={applyDiscount}>
-              Apply Discount
-            </button>
+            <div className="row">
+              <div className="col-3">
+                {" "}
+                {/* Ustawiamy szerokość inputa na 1/4 ekranu */}
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter discount code"
+                  value={discountCode}
+                  onChange={(e) => setDiscountCode(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="col-auto">
+              {" "}
+              {/* Przyciski w oddzielnej kolumnie */}
+              <button className="btn btn-add mt-2" onClick={applyDiscount}>
+                Apply Discount
+              </button>
+            </div>
           </div>
 
           <div className="d-flex justify-content-between">

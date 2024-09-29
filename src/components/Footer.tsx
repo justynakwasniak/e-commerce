@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
+
 const Footer = () => {
   return (
     <footer className="text-center text-lg-start">
@@ -5,9 +8,9 @@ const Footer = () => {
         <div className="row d-flex justify-content-between">
           <div className="col-lg-6 col-md-12 mb-4 mb-md-0 text-start">
             <h5 className="footer-text text-uppercase">About us</h5>
-            <p className=" footer-text footer-text">
-              "This is a sample application for managing products. <br /> Thank
-              you for visiting our site!"
+            <p className="footer-text">
+              This is a sample application for managing products. <br /> Thank
+              you for visiting my site!
             </p>
           </div>
 
@@ -22,6 +25,29 @@ const Footer = () => {
               <li>
                 <a className="link-tel footer-text" href="#!">
                   Telefon: 123-456-789
+                </a>
+              </li>
+              {/* Ikony do mediów społecznościowych */}
+              <li className="mt-2">
+                <a
+                  className="footer-icon"
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FontAwesomeIcon
+                    icon={faInstagram}
+                    size="2x"
+                    className="me-3"
+                  />
+                </a>
+                <a
+                  className="footer-icon"
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FontAwesomeIcon icon={faFacebook} size="2x" />
                 </a>
               </li>
             </ul>

@@ -15,6 +15,18 @@ const Navbar = () => {
     navigate(`/products?search=${searchTerm}`);
     setSearchTerm(""); // Oczyść pole wyszukiwania po przesłaniu
   };
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    // Zbierz dane z formularza, np. imię użytkownika
+    const firstName = document.getElementById("firstName").value;
+
+    // Zamknij modal rejestracji
+    setShowRegisterModal(false);
+
+    // Po pomyślnej rejestracji przekieruj na stronę powitalną
+    navigate("/welcome", { state: { firstName } });
+  };
 
   // Stany do kontrolowania modali
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -185,41 +197,49 @@ const Navbar = () => {
               <form>
                 <div className="mb-3">
                   <label htmlFor="firstName" className="form-label">
-                    First Name
+                    First Name *
                   </label>
                   <input type="text" className="form-control" id="firstName" />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="lastName" className="form-label">
-                    Last Name
+                    Last Name *
                   </label>
                   <input type="text" className="form-control" id="lastName" />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="address" className="form-label">
-                    Address
+                  <label htmlFor="email" className="form-label">
+                    Email *
                   </label>
-                  <input type="text" className="form-control" id="address" />
+                  <input type="email" className="form-control" id="email" />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="phone" className="form-label">
-                    Phone
-                  </label>
-                  <input type="text" className="form-control" id="phone" />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="registerEmail" className="form-label">
-                    Email
+                  <label htmlFor="password" className="form-label">
+                    Password *
                   </label>
                   <input
-                    type="email"
+                    type="password"
                     className="form-control"
-                    id="registerEmail"
+                    id="password"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">
+                    Confirm password *
+                  </label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="confirmPassword"
                   />
                 </div>
               </form>
             </div>
             <div className="modal-footer">
+              <p class="password-requirements">
+                Password must contain at least one number, one uppercase and
+                lowercase letter and at least 8 characters.
+              </p>
               <button
                 type="button"
                 className="btn btn-secondary"
@@ -227,7 +247,11 @@ const Navbar = () => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleRegister}
+              >
                 Register
               </button>
             </div>

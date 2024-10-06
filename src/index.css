@@ -170,3 +170,31 @@ input:focus {
   outline: none; /* Usuwa domyślny outline */
   box-shadow: none; /* Usuwa cień, który może być dodany przez Bootstrap */
 }
+.password-requirements {
+  color: var(--primary-black);
+  font-size: small;
+}
+.welcome-container {
+  margin-left: 50px; /* Odstęp od lewej krawędzi */
+  margin-bottom: 100px;
+}
+
+.sidebar-menu {
+  list-style-type: none; /* Usuwa kropki z listy */
+  padding: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 10px; /* Odstęp między elementami */
+}
+
+.sidebar-menu li a {
+  text-decoration: none; /* Usuwa podkreślenie linków */
+  color: var(--primary-gray); /* Kolor białego tekstu */
+  font-size: 18px;
+  transition: color 0.3s ease; /* Animacja zmiany koloru */
+}
+
+.sidebar-menu li a:hover {
+  color: var(--primary-turquoise); /* Zmiana koloru na szary po najechaniu */
+}

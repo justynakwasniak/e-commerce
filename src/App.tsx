@@ -7,6 +7,8 @@ import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import Payment from "./pages/Payment";
 import WelcomePage from "./components/WelcomePage";
+import OrderHistory from "./components/OrderHistory";
+import AccountDetails from "./components/AccountDetails";
 import { CartProvider } from "./context/CartContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
@@ -24,6 +26,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/order-history" element={<OrderHistory />} />
+          <Route path="/account-details" element={<AccountDetails />} />
         </Routes>
         <Footer />
       </CartProvider>

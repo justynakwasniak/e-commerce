@@ -15,17 +15,86 @@ const Navbar = () => {
     navigate(`/products?search=${searchTerm}`);
     setSearchTerm(""); // Oczyść pole wyszukiwania po przesłaniu
   };
+
   const handleRegister = (e) => {
     e.preventDefault();
 
-    // Zbierz dane z formularza, np. imię użytkownika
+    // Zbierz dane z formularza
     const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-    // Zamknij modal rejestracji
-    setShowRegisterModal(false);
+    // Sprawdź, czy wszystkie pola są wypełnione
+    if (firstName && lastName && email && password) {
+      // Pobierz aktualnych użytkowników
+      const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Po pomyślnej rejestracji przekieruj na stronę powitalną
-    navigate("/welcome", { state: { firstName } });
+      // Sprawdź, czy użytkownik już istnieje
+      const userExists = existingUsers.some((user) => user.email === email);
+      if (userExists) {
+        alert("User already exists.");
+        return;
+      }
+
+      // Dodaj nowego użytkownika do tablicy
+      const newUser = { firstName, lastName, email, password };
+      existingUsers.push(newUser);
+      localStorage.setItem("users", JSON.stringify(existingUsers)); // Zapisz tablicę użytkowników
+
+      console.log("User registered: ", newUser); // Dodaj logowanie
+
+      // Zamknij modal rejestracji
+      setShowRegisterModal(false);
+
+      // Przekieruj na stronę powitalną z przekazanymi danymi
+      navigate("/welcome", { state: newUser });
+    } else {
+      alert("Please fill in all fields");
+    }
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    // Pobierz dane logowania z formularza
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    // Sprawdź, czy dane logowania są poprawne
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Znajdź użytkownika
+    const userData = existingUsers.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    console.log("Logging in user: ", { email, password });
+    console.log("Stored user data: ", userData); // Zaktualizowane logowanie
+
+    if (userData) {
+      // Zapisz dane użytkownika do localStorage po zalogowaniu
+      localStorage.setItem("userData", JSON.stringify(userData));
+
+      // Zamknij modal logowania
+      setShowLoginModal(false);
+
+      // Przekieruj na stronę powitalną po zalogowaniu
+      navigate("/welcome", {
+        state: {
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+        },
+      });
+    } else {
+      alert("Invalid email or password. Please try again.");
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userData");
+    navigate("/"); // Przekieruj na stronę główną lub stronę logowania
   };
 
   // Stany do kontrolowania modali
@@ -164,7 +233,11 @@ const Navbar = () => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleLogin} // Dodaj wywołanie handleLogin
+              >
                 Login
               </button>
             </div>
@@ -224,7 +297,7 @@ const Navbar = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
+                  <label htmlFor="confirmPassword" className="form-label">
                     Confirm password *
                   </label>
                   <input
@@ -236,7 +309,7 @@ const Navbar = () => {
               </form>
             </div>
             <div className="modal-footer">
-              <p class="password-requirements">
+              <p className="password-requirements">
                 Password must contain at least one number, one uppercase and
                 lowercase letter and at least 8 characters.
               </p>

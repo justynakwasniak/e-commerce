@@ -1,20 +1,30 @@
-import { useState } from "react"; // Importuj useState
-import { useCart } from "../context/useCart"; // Importuj kontekst koszyka
-import { useNavigate } from "react-router-dom"; // Importuj useNavigate
+import { useState } from "react"; // Import useState
+import { useCart } from "../context/useCart"; // Import cart context
+import { useUser } from "../context/UserContext"; // Import user context
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Payment = () => {
-  const { cart, clearCart } = useCart(); // Pobierz produkty z koszyka i funkcję do jego czyszczenia
+  const { cart, clearCart } = useCart(); // Get products from cart and function to clear it
+  const { user } = useUser(); // Access user context
   const navigate = useNavigate();
 
-  // Stany do przechowywania wybranych metod płatności i dostawy
-  const [paymentMethod, setPaymentMethod] = useState("credit-card"); // Domyślna wartość
-  const [shippingMethod, setShippingMethod] = useState("standard"); // Domyślna wartość
+  // States to store selected payment and shipping methods
+  const [paymentMethod, setPaymentMethod] = useState("credit-card"); // Default value
+  const [shippingMethod, setShippingMethod] = useState("standard"); // Default value
 
   const handlePayment = () => {
-    // Pobierz istniejące zamówienia z localStorage
-    const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+    if (!user) {
+      alert("Please log in to proceed with payment."); // Alert if user is not logged in
+      return;
+    }
 
-    // Określenie nazw metod płatności i dostawy na podstawie wyboru
+    const userEmail = user.email; // Get logged-in user's email from context
+
+    // Get existing orders for this user from localStorage
+    const existingOrders =
+      JSON.parse(localStorage.getItem(`orders_${userEmail}`)) || [];
+
+    // Determine payment and shipping method names based on selection
     const paymentMethodName =
       paymentMethod === "credit-card"
         ? "Credit Card"
@@ -26,31 +36,28 @@ const Payment = () => {
         ? "InPost Parcel Locker"
         : "Standard Courier";
 
-    // Stwórz nowe zamówienie z koszyka i daty zamówienia
+    // Create new order
     const newOrder = {
       items: cart,
-      date: new Date().toLocaleString(), // Data zamówienia
-      paymentMethod: paymentMethodName, // Wybrana metoda płatności
-      shippingMethod: shippingMethodName, // Wybrana metoda dostawy
+      date: new Date().toLocaleString(),
+      paymentMethod: paymentMethodName,
+      shippingMethod: shippingMethodName,
     };
 
-    // Dodaj nowe zamówienie do tablicy zamówień
+    // Add new order to the orders array
     existingOrders.push(newOrder);
 
-    // Zapisz zaktualizowaną tablicę zamówień w localStorage
-    localStorage.setItem("orders", JSON.stringify(existingOrders));
+    // Save updated orders array in localStorage for the specific user
+    localStorage.setItem(`orders_${userEmail}`, JSON.stringify(existingOrders));
 
-    // Wyczyść koszyk
+    // Clear the cart and redirect the user to order history
     clearCart();
-
-    // Przekieruj użytkownika do zakładki "Order History"
     navigate("/order-history");
   };
 
   return (
     <div className="container">
       <h2>Payment & Shipping</h2>
-
       <div className="row">
         {/* Select Payment Method */}
         <div className="col-md-3 col-sm-6 mb-3">
@@ -58,7 +65,7 @@ const Payment = () => {
           <select
             className="form-select"
             value={paymentMethod}
-            onChange={(e) => setPaymentMethod(e.target.value)} // Aktualizowanie stanu na podstawie wyboru
+            onChange={(e) => setPaymentMethod(e.target.value)} // Update state based on selection
           >
             <option value="credit-card">Credit Card</option>
             <option value="paypal">PayPal</option>
@@ -66,7 +73,6 @@ const Payment = () => {
           </select>
         </div>
       </div>
-
       <div className="row mt-3">
         {/* Select Shipping Method */}
         <div className="col-md-3 col-sm-6 mb-3">
@@ -74,14 +80,13 @@ const Payment = () => {
           <select
             className="form-select"
             value={shippingMethod}
-            onChange={(e) => setShippingMethod(e.target.value)} // Aktualizowanie stanu na podstawie wyboru
+            onChange={(e) => setShippingMethod(e.target.value)} // Update state based on selection
           >
             <option value="standard">InPost Parcel Locker - $3</option>
             <option value="express">Standard Courier - $5</option>
           </select>
         </div>
       </div>
-
       <button className="btn btn-add mt-4" onClick={handlePayment}>
         Proceed to Payment
       </button>

@@ -1,13 +1,23 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useUser } from "../context/UserContext"; // Import user context
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
+  const { user } = useUser(); // Access user context
 
   useEffect(() => {
-    // Pobierz zamówienia z localStorage
-    const storedOrders = JSON.parse(localStorage.getItem("orders")) || [];
+    if (!user) {
+      setOrders([]); // If user is not logged in, clear orders
+      return;
+    }
+
+    const userEmail = user.email; // Get logged-in user's email from context
+
+    // Get orders from localStorage for this user
+    const storedOrders =
+      JSON.parse(localStorage.getItem(`orders_${userEmail}`)) || [];
     setOrders(storedOrders);
-  }, []);
+  }, [user]); // Re-run effect when user changes
 
   return (
     <div className="container">

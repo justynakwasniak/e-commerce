@@ -3,6 +3,7 @@ import { useCart } from "../context/useCart"; // Importuj kontekst koszyka
 import "../index.css";
 import eshopLogo from "../assets/logo eshop.webp";
 import { useState } from "react"; // Dodaj import useState
+import { useUser } from "../context/UserContext"; // Import user context
 
 const Navbar = () => {
   const { cart } = useCart();

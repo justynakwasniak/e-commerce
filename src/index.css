@@ -77,10 +77,27 @@ footer {
   background-color: #17c79e;
   color: var(--primary-gray);
 }
+
 .counter {
-  background-color: var(--primary-turquoise);
-  margin-top: 1px;
-  margin-left: 0.5rem;
+  background-color: var(
+    --primary-turquoise
+  ); /* Kolor tła, możesz dostosować według potrzeb */
+  color: white; /* Kolor tekstu */
+  padding: 0.25rem 0.5rem; /* Dostosowanie paddingu */
+  font-size: 0.75rem; /* Rozmiar czcionki */
+  height: 1.5rem; /* Wysokość kropki */
+  min-width: 1.5rem; /* Minimalna szerokość, aby kropka była zawsze okrągła */
+  text-align: center; /* Wyśrodkowanie tekstu */
+  border-radius: 50%;
+  top: 0.5rem;
+  left: 0.7rem; /* Okrągłe krawędzie */
+}
+@media (max-width: 576px) {
+  .counter {
+    top: 1.2rem; /* Ustawienie kropki bliżej napisu na małych ekranach */
+    left: 0.7rem; /* Ustawienie kropki bliżej napisu na małych ekranach */
+    font-size: 0.8rem; /* Zmniejszenie rozmiaru czcionki na małych ekranach */
+  }
 }
 .alert {
   text-align: center;
@@ -197,4 +214,20 @@ input:focus {
 
 .sidebar-menu li a:hover {
   color: var(--primary-turquoise); /* Zmiana koloru na szary po najechaniu */
+}
+/* Styles for the modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
+  backdrop-filter: blur(5px); /* Apply blur effect */
+  z-index: 998; /* Ensure it appears below the modal but above other content */
+}
+
+/* Modal styles */
+.modal {
+  z-index: 1000; /* Ensure the modal is on top */
 }

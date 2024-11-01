@@ -1,54 +1,63 @@
 import { useEffect, useState } from "react";
-import { useUser } from "../context/UserContext"; // Import user context
+import { useUser } from "../context/UserContext";
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
-  const { user } = useUser(); // Access user context
+  const { user } = useUser();
 
   useEffect(() => {
     if (!user) {
-      setOrders([]); // If user is not logged in, clear orders
+      setOrders([]);
       return;
     }
 
-    const userEmail = user.email; // Get logged-in user's email from context
-
-    // Get orders from localStorage for this user
     const storedOrders =
-      JSON.parse(localStorage.getItem(`orders_${userEmail}`)) || [];
+      JSON.parse(localStorage.getItem(`orders_${user.email}`)) || [];
     setOrders(storedOrders);
-  }, [user]); // Re-run effect when user changes
+  }, [user]);
 
   return (
     <div className="container">
-      <h2>Your Order History</h2>
+      <h2 className="text-center">Your Order History</h2>
       {orders.length > 0 ? (
         orders.map((order, index) => (
-          <div className="card mb-3" key={index}>
+          <div
+            className="card mb-3 mx-auto"
+            style={{ width: "50%" }}
+            key={index}
+          >
             <div className="card-body">
               <h5 className="card-title">Order #{index + 1}</h5>
-              <p className="card-text">
+              <p>
                 <strong>Date:</strong> {order.date}
               </p>
-              <p className="card-text">
+              <p>
                 <strong>Payment Method:</strong> {order.paymentMethod}
               </p>
-              <p className="card-text">
+              <p>
                 <strong>Shipping Method:</strong> {order.shippingMethod}
               </p>
               <ul>
-                {order.items.map((item, idx) => (
-                  <li key={idx}>
-                    {item.name} - Quantity: {item.quantity} - Price: $
-                    {item.price}
-                  </li>
-                ))}
+                {order.items && order.items.length > 0 ? (
+                  order.items.map((item, idx) => (
+                    <li key={idx}>
+                      {item.name} - Quantity: {item.quantity} - Price: $
+                      {item.price.toFixed(2)}
+                    </li>
+                  ))
+                ) : (
+                  <li>No items in this order.</li>
+                )}
               </ul>
             </div>
           </div>
         ))
       ) : (
-        <p>You have no orders.</p>
+        <p>
+          {user
+            ? "You have no orders."
+            : "Please log in to view your order history."}
+        </p>
       )}
     </div>
   );

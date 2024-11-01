@@ -34,7 +34,7 @@ const Cart = () => {
 
   return (
     <div className="container">
-      <h2>Your Cart</h2>
+      <h2 className="text-center">Your Cart</h2>
       {cart.length === 0 ? (
         <p>Cart is empty</p>
       ) : (
@@ -45,13 +45,13 @@ const Cart = () => {
                 className="list-group-item d-flex justify-content-between align-items-center product-cart"
                 key={item.id}
               >
-                <div>
+                <div className="me-auto">
                   <h5>{item.title}</h5>
                   <p>
                     Price: ${item.price.toFixed(2)} x {item.quantity}
                   </p>
                 </div>
-                <div>
+                <div className="d-flex align-items-center">
                   <button
                     className="btn btn-add mx-1"
                     onClick={() =>
@@ -64,6 +64,7 @@ const Cart = () => {
                   >
                     -
                   </button>
+
                   <button
                     className="btn btn-add mx-1"
                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
@@ -88,9 +89,9 @@ const Cart = () => {
 
           <div className="mb-3">
             <div className="row">
-              <div className="col-3">
+              <div className="col-12 col-md-3">
                 {" "}
-                {/* Ustawiamy szerokość inputa na 1/4 ekranu */}
+                {/* Użycie col-12 dla małych ekranów */}
                 <input
                   type="text"
                   className="form-control"
@@ -99,13 +100,11 @@ const Cart = () => {
                   onChange={(e) => setDiscountCode(e.target.value)}
                 />
               </div>
-            </div>
-            <div className="col-auto">
-              {" "}
-              {/* Przyciski w oddzielnej kolumnie */}
-              <button className="btn btn-add mt-2" onClick={applyDiscount}>
-                Apply Discount
-              </button>
+              <div className="col-auto">
+                <button className="btn btn-add mt-2" onClick={applyDiscount}>
+                  Apply Discount
+                </button>
+              </div>
             </div>
           </div>
 

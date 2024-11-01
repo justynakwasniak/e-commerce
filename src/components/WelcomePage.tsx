@@ -1,31 +1,31 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useUser } from "../context/UserContext"; // Importuj useUser
 
 const WelcomePage = () => {
-  const [userData, setUserData] = useState({});
+  const { user, setUser } = useUser(); // Użyj useUser do uzyskania danych użytkownika
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Pobierz dane użytkownika z localStorage
-    const savedUserData = localStorage.getItem("userData");
-    if (savedUserData) {
-      setUserData(JSON.parse(savedUserData));
+    // Jeśli nie ma użytkownika, przekieruj na stronę główną
+    if (!user) {
+      navigate("/"); // Możesz również przekierować na stronę logowania
     }
-  }, []);
-
-  const { firstName, lastName, email } = userData;
+  }, [user, navigate]);
 
   const handleLogout = () => {
     // Usuń dane użytkownika z localStorage
     localStorage.removeItem("userData");
-    // Przekieruj na stronę główną (lub stronę logowania)
-    navigate("/");
+    setUser(null); // Resetuj stan użytkownika
+    navigate("/"); // Przekieruj na stronę główną (lub stronę logowania)
   };
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
-      <h1 className="text-center mb-5">Welcome back, {firstName}!</h1>
-      <ul className="sidebar-menu list-unstyled">
+      <h1 className="text-center mb-5">
+        Welcome back, {user ? user.firstName : "Guest"}!
+      </h1>
+      <ul className="sidebar-menu list-unstyled text-center">
         <li>
           <Link to="/order-history">Order History</Link>
         </li>
@@ -33,13 +33,7 @@ const WelcomePage = () => {
           <Link to="/wishlist">Wishlist</Link>
         </li>
         <li>
-          <Link
-            to={{
-              pathname: "/account-details",
-            }}
-          >
-            Account Details
-          </Link>
+          <Link to="/account-details">Account Details</Link>
         </li>
         <li>
           <button onClick={handleLogout} className="btn btn-add">

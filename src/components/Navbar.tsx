@@ -1,86 +1,77 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useCart } from "../context/useCart"; // Importuj kontekst koszyka
+import { useCart } from "../context/useCart";
 import "../index.css";
 import eshopLogo from "../assets/logo eshop.webp";
-import { useState } from "react"; // Dodaj import useState
-import { useUser } from "../context/UserContext"; // Import user context
+import { useState, useEffect } from "react";
+import { useUser } from "../context/UserContext";
 
 const Navbar = () => {
   const { cart } = useCart();
   const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate(); // Dodaj useNavigate
+  const navigate = useNavigate();
+  const { user, setUser } = useUser();
+
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+
+  // Load user data from localStorage
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem("userData"));
+    if (savedUser) {
+      setUser(savedUser);
+    }
+  }, [setUser]);
 
   const handleSearch = (e) => {
     e.preventDefault();
     navigate(`/products?search=${searchTerm}`);
-    setSearchTerm(""); // Oczyść pole wyszukiwania po przesłaniu
+    setSearchTerm(""); // Clear search input after submission
   };
 
   const handleRegister = (e) => {
     e.preventDefault();
 
-    // Zbierz dane z formularza
     const firstName = document.getElementById("firstName").value;
     const lastName = document.getElementById("lastName").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
-    // Sprawdź, czy wszystkie pola są wypełnione
-    if (firstName && lastName && email && password) {
-      // Pobierz aktualnych użytkowników
-      const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-      // Sprawdź, czy użytkownik już istnieje
-      const userExists = existingUsers.some((user) => user.email === email);
-      if (userExists) {
-        alert("User already exists.");
-        return;
-      }
-
-      // Dodaj nowego użytkownika do tablicy
-      const newUser = { firstName, lastName, email, password };
-      existingUsers.push(newUser);
-      localStorage.setItem("users", JSON.stringify(existingUsers)); // Zapisz tablicę użytkowników
-
-      console.log("User registered: ", newUser); // Dodaj logowanie
-
-      // Zamknij modal rejestracji
-      setShowRegisterModal(false);
-
-      // Przekieruj na stronę powitalną z przekazanymi danymi
-      navigate("/welcome", { state: newUser });
-    } else {
-      alert("Please fill in all fields");
+    // Validate input fields
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      return showAlert("Please fill in all fields.");
     }
+
+    if (password !== confirmPassword) {
+      return showAlert("Passwords do not match.");
+    }
+
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+    if (existingUsers.some((user) => user.email === email)) {
+      return showAlert("User already exists.");
+    }
+
+    const newUser = { firstName, lastName, email, password };
+    existingUsers.push(newUser);
+    localStorage.setItem("users", JSON.stringify(existingUsers));
+    localStorage.setItem(`userData_${newUser.email}`, JSON.stringify(newUser));
+
+    setUser(newUser);
+    setShowRegisterModal(false);
+    navigate("/welcome", { state: newUser });
   };
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Pobierz dane logowania z formularza
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
+    const userData = JSON.parse(localStorage.getItem(`userData_${email}`));
 
-    // Sprawdź, czy dane logowania są poprawne
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-    // Znajdź użytkownika
-    const userData = existingUsers.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    console.log("Logging in user: ", { email, password });
-    console.log("Stored user data: ", userData); // Zaktualizowane logowanie
-
-    if (userData) {
-      // Zapisz dane użytkownika do localStorage po zalogowaniu
-      localStorage.setItem("userData", JSON.stringify(userData));
-
-      // Zamknij modal logowania
+    if (userData && userData.password === password) {
+      setUser(userData);
       setShowLoginModal(false);
-
-      // Przekieruj na stronę powitalną po zalogowaniu
       navigate("/welcome", {
         state: {
           firstName: userData.firstName,
@@ -89,18 +80,19 @@ const Navbar = () => {
         },
       });
     } else {
-      alert("Invalid email or password. Please try again.");
+      showAlert("Invalid email or password. Please try again.");
     }
+  };
+
+  const showAlert = (message) => {
+    alert(message); // Consider using a custom alert component in the future
   };
 
   const handleLogout = () => {
     localStorage.removeItem("userData");
-    navigate("/"); // Przekieruj na stronę główną lub stronę logowania
+    setUser(null); // Reset user state
+    navigate("/"); // Redirect to home or login page
   };
-
-  // Stany do kontrolowania modali
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
 
   return (
     <>
@@ -150,10 +142,10 @@ const Navbar = () => {
                   className="nav-link position-relative d-flex align-items-center"
                   to="/cart"
                 >
-                  <i className="fa fa-shopping-cart"></i>
-                  <span className="ms-1">Shopping Cart</span>
+                  <i className="mr-1 fa fa-shopping-cart"></i>
+                  <span className="ms-1 mr-1">Shopping Cart</span>
                   {itemCount > 0 && (
-                    <span className="position-absolute start-100 translate-middle badge rounded-pill counter">
+                    <span className="position-absolute top-1 right-1 start-100 translate-middle badge rounded-pill counter">
                       {itemCount}
                     </span>
                   )}
@@ -164,7 +156,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Kontener pod navbar */}
       <div className="container mb-3 d-flex justify-content-end">
         <button
           className="btn btn-add me-2"
@@ -173,167 +164,108 @@ const Navbar = () => {
           Login
         </button>
         <button
-          className="btn btn-add"
+          className="btn btn-add me-2"
           onClick={() => setShowRegisterModal(true)}
         >
           Register
         </button>
+        <button className="btn btn-add" onClick={() => navigate("/welcome")}>
+          My profile
+        </button>
       </div>
 
-      {/* Modal logowania */}
-      <div
-        className={`modal fade ${showLoginModal ? "show" : ""}`}
-        style={{ display: showLoginModal ? "block" : "none" }}
-        tabIndex="-1"
-        aria-labelledby="loginModalLabel"
-        aria-hidden={!showLoginModal}
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="loginModalLabel">
-                Login
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                onClick={() => setShowLoginModal(false)}
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="mb-3">
-                  <label htmlFor="loginEmail" className="form-label">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="loginEmail"
-                    aria-describedby="emailHelp"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="loginPassword" className="form-label">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="loginPassword"
-                  />
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => setShowLoginModal(false)}
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleLogin} // Dodaj wywołanie handleLogin
-              >
-                Login
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Overlay for background blur effect */}
+      {(showLoginModal || showRegisterModal) && (
+        <div className="modal-overlay" />
+      )}
 
-      {/* Modal rejestracji */}
-      <div
-        className={`modal fade ${showRegisterModal ? "show" : ""}`}
-        style={{ display: showRegisterModal ? "block" : "none" }}
-        tabIndex="-1"
-        aria-labelledby="registerModalLabel"
-        aria-hidden={!showRegisterModal}
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="registerModalLabel">
-                Register
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                onClick={() => setShowRegisterModal(false)}
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="mb-3">
-                  <label htmlFor="firstName" className="form-label">
-                    First Name *
-                  </label>
-                  <input type="text" className="form-control" id="firstName" />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="lastName" className="form-label">
-                    Last Name *
-                  </label>
-                  <input type="text" className="form-control" id="lastName" />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email *
-                  </label>
-                  <input type="email" className="form-control" id="email" />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
-                    Password *
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="password"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="confirmPassword" className="form-label">
-                    Confirm password *
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="confirmPassword"
-                  />
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <p className="password-requirements">
-                Password must contain at least one number, one uppercase and
-                lowercase letter and at least 8 characters.
-              </p>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => setShowRegisterModal(false)}
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleRegister}
-              >
-                Register
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Login Modal */}
+      {showLoginModal && (
+        <Modal title="Login" onClose={() => setShowLoginModal(false)}>
+          <form onSubmit={handleLogin}>
+            <InputField id="loginEmail" label="Email address" type="email" />
+            <InputField id="loginPassword" label="Password" type="password" />
+            <ModalFooter
+              onClose={() => setShowLoginModal(false)}
+              onSubmit={handleLogin}
+            />
+          </form>
+        </Modal>
+      )}
+
+      {/* Registration Modal */}
+      {showRegisterModal && (
+        <Modal title="Register" onClose={() => setShowRegisterModal(false)}>
+          <form onSubmit={handleRegister}>
+            <InputField id="firstName" label="First Name *" type="text" />
+            <InputField id="lastName" label="Last Name *" type="text" />
+            <InputField id="email" label="Email *" type="email" />
+            <InputField id="password" label="Password *" type="password" />
+            <InputField
+              id="confirmPassword"
+              label="Confirm password *"
+              type="password"
+            />
+            <p className="password-requirements">
+              Password must contain at least one number, one uppercase and
+              lowercase letter and at least 8 characters.
+            </p>
+            <ModalFooter
+              onClose={() => setShowRegisterModal(false)}
+              onSubmit={handleRegister}
+            />
+          </form>
+        </Modal>
+      )}
     </>
   );
 };
+
+// Modal Component
+const Modal = ({ title, onClose, children }) => (
+  <div
+    className="modal fade show"
+    style={{ display: "block" }}
+    tabIndex="-1"
+    aria-hidden="true"
+  >
+    <div className="modal-dialog">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title">{title}</h5>
+          <button
+            type="button"
+            className="btn-close"
+            onClick={onClose}
+            aria-label="Close"
+          ></button>
+        </div>
+        <div className="modal-body">{children}</div>
+      </div>
+    </div>
+  </div>
+);
+
+// Input Field Component
+const InputField = ({ id, label, type }) => (
+  <div className="mb-3">
+    <label htmlFor={id} className="form-label">
+      {label}
+    </label>
+    <input type={type} className="form-control" id={id} required />
+  </div>
+);
+
+// Modal Footer Component
+const ModalFooter = ({ onClose, onSubmit }) => (
+  <div className="modal-footer">
+    <button type="button" className="btn btn-secondary" onClick={onClose}>
+      Close
+    </button>
+    <button type="submit" className="btn btn-primary" onClick={onSubmit}>
+      Submit
+    </button>
+  </div>
+);
 
 export default Navbar;

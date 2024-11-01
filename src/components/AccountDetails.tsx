@@ -1,22 +1,18 @@
-import { useEffect, useState } from "react";
+import { useUser } from "../context/UserContext";
 
 const AccountDetails = () => {
-  const [userData, setUserData] = useState({});
+  const { user } = useUser();
 
-  useEffect(() => {
-    // Pobierz dane użytkownika z localStorage
-    const savedUserData = localStorage.getItem("userData");
-    if (savedUserData) {
-      setUserData(JSON.parse(savedUserData));
-    }
-  }, []);
+  if (!user) {
+    return <p>Please log in to view your account details.</p>;
+  }
 
-  const { firstName, lastName, email } = userData;
+  const { firstName, lastName, email } = user;
 
   return (
     <div className="container mt-5">
-      <h2 className="mb-4">Account Details</h2>
-      <div className="card p-4">
+      <h2 className="mb-4 text-center">Account Details</h2>
+      <div className="card p-4 mx-auto" style={{ width: "50%" }}>
         <p>
           <strong>First Name:</strong> {firstName || "N/A"}
         </p>

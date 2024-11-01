@@ -1,17 +1,19 @@
+// ProductCard.tsx
 import React, { useState } from "react";
-import { Product } from "../types/product";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/useCart"; // Importuj useCart
+import { Product } from "../types/product";
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart: (product: Product & { quantity: number }) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [addedToCart, setAddedToCart] = useState(false);
+  const { addToCart } = useCart(); // Użyj useCart do uzyskania addToCart
 
   const handleAddToCart = () => {
-    onAddToCart({ ...product, quantity: 1 });
+    addToCart({ ...product, quantity: 1 }); // Dodaj produkt do koszyka
     setAddedToCart(true);
 
     // Ustawiamy reset komunikatu po 2 sekundach
@@ -34,11 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
           src={product.image}
           className="card-img-top"
           alt={product.title}
-          style={{
-            height: "150px",
-            objectFit: "contain",
-            width: "100%",
-          }}
+          style={{ height: "150px", objectFit: "contain", width: "100%" }}
         />
       </Link>
 

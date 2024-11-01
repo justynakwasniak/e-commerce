@@ -44,7 +44,7 @@ const Home = () => {
         src={eshopImage}
         alt="E-Shop"
         className="eshop-first img-fluid"
-        style={{ maxWidth: "600px", height: "auto", borderRadius: "50px" }}
+        style={{ maxWidth: "100%", height: "auto", borderRadius: "50px" }} // Zmiana maxWidth na 100%
       />
 
       <div className="mt-5">

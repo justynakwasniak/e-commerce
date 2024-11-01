@@ -1,20 +1,13 @@
+// useCart.tsx
 import { useContext } from "react";
-import CartContext from "./CartContext";
+import CartContext, { CartContextType } from "./CartContext";
 
 export const useCart = () => {
-  const context = useContext(CartContext);
+  const context = useContext<CartContextType | undefined>(CartContext);
 
   if (!context) {
     throw new Error("useCart must be used within a CartProvider");
   }
 
-  const { setCart } = context; // Pobierz setCart z kontekstu
-
-  // Funkcja do czyszczenia koszyka
-  const clearCart = () => setCart([]);
-
-  return {
-    ...context, // Zwraca resztę wartości z kontekstu
-    clearCart, // Dodaje clearCart do zwracanego obiektu
-  };
+  return context; // Zwracamy pełny kontekst
 };

@@ -3,9 +3,10 @@ import { Product, CartItem } from "../types/product";
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product) => void;
+  addToCart: (product: Product & { quantity: number }) => void;
   removeFromCart: (id: number) => void;
   clearCart: () => void;
+  updateQuantity: (id: number, quantity: number) => void; // Dodaj updateQuantity do kontekstu
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -13,19 +14,19 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Product & { quantity: number }) => {
     const existingProduct = cart.find((item) => item.id === product.id);
 
     if (existingProduct) {
       setCart(
         cart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + product.quantity }
             : item
         )
       );
     } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
+      setCart([...cart, product]);
     }
   };
 
@@ -36,6 +37,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const clearCart = () => {
     setCart([]);
   };
+
   const updateQuantity = (id: number, quantity: number) => {
     setCart((prevCart) =>
       prevCart.map((item) => (item.id === id ? { ...item, quantity } : item))

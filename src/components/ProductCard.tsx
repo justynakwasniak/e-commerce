@@ -6,16 +6,20 @@ import { Product } from "../types/product";
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product & { quantity: number }) => void; // Dodaj ten prop
+  style?: React.CSSProperties;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  onAddToCart,
+  style,
+}) => {
   const [addedToCart, setAddedToCart] = useState(false);
 
   const handleAddToCart = () => {
-    onAddToCart({ ...product, quantity: 1 }); // Użyj prop onAddToCart
+    onAddToCart({ ...product, quantity: 1 });
     setAddedToCart(true);
 
-    // Ustawiamy reset komunikatu po 2 sekundach
     setTimeout(() => {
       setAddedToCart(false);
     }, 2000);
@@ -28,6 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
         width: "18rem",
         height: "350px",
         backgroundColor: "var(--primary-gray)",
+        ...style, // Użyj prop style
       }}
     >
       <Link to={`/products/${product.id}`}>
@@ -61,7 +66,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
           Add to cart
         </button>
 
-        {/* Komunikat o dodaniu produktu do koszyka */}
         {addedToCart && (
           <div className="alert mt-2" role="alert">
             Product added to cart!

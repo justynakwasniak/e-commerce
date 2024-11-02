@@ -1,19 +1,18 @@
 // ProductCard.tsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/useCart"; // Importuj useCart
 import { Product } from "../types/product";
 
 interface ProductCardProps {
   product: Product;
+  onAddToCart: (product: Product & { quantity: number }) => void; // Dodaj ten prop
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
   const [addedToCart, setAddedToCart] = useState(false);
-  const { addToCart } = useCart(); // Użyj useCart do uzyskania addToCart
 
   const handleAddToCart = () => {
-    addToCart({ ...product, quantity: 1 }); // Dodaj produkt do koszyka
+    onAddToCart({ ...product, quantity: 1 }); // Użyj prop onAddToCart
     setAddedToCart(true);
 
     // Ustawiamy reset komunikatu po 2 sekundach

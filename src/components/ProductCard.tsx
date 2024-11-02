@@ -2,10 +2,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Product } from "../types/product";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useWishlist } from "../context/useWishlist";
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart: (product: Product & { quantity: number }) => void; // Dodaj ten prop
+  onAddToCart: (product: Product & { quantity: number }) => void;
   style?: React.CSSProperties;
 }
 
@@ -15,6 +18,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   style,
 }) => {
   const [addedToCart, setAddedToCart] = useState(false);
+  const { addToWishlist } = useWishlist(); // Access addToWishlist function
 
   const handleAddToCart = () => {
     onAddToCart({ ...product, quantity: 1 });
@@ -25,14 +29,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }, 2000);
   };
 
+  const handleWishlistClick = () => {
+    addToWishlist(product); // Add product to wishlist
+  };
+
   return (
     <div
-      className="card mb-4"
+      className="card mb-4 position-relative" // Use position-relative to allow absolute positioning of heart icon
       style={{
         width: "18rem",
         height: "350px",
         backgroundColor: "var(--primary-gray)",
-        ...style, // Użyj prop style
+        ...style,
       }}
     >
       <Link to={`/products/${product.id}`}>
@@ -43,6 +51,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
           style={{ height: "150px", objectFit: "contain", width: "100%" }}
         />
       </Link>
+
+      {/* Heart icon */}
+      <FontAwesomeIcon
+        icon={faHeart}
+        className="heart wishlist-icon position-absolute top-0 end-0 p-2"
+        style={{ color: "#D9534F", cursor: "pointer", fontSize: "1.5rem" }}
+        onClick={handleWishlistClick}
+      />
 
       <div className="card-body d-flex flex-column">
         <h5

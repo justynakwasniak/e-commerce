@@ -233,3 +233,14 @@ input:focus {
 .modal {
   z-index: 1000; /* Ensure the modal is on top */
 }
+.heart {
+  transition: transform 0.2s ease-in-out;
+}
+.heart:hover {
+  transform: translateY(-3px) rotate(-10deg);
+}
+.wishlist-img {
+  width: 100%; /* Adjust the width as needed */
+  height: 120px; /* Set a smaller height */
+  object-fit: contain; /* Ensure the image scales well */
+}

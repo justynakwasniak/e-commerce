@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
-import { Order } from "../types/product"; // Upewnij się, że ścieżka jest poprawna
+import { Order } from "../types/product"; // Ensure the path is correct
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -18,9 +18,16 @@ const OrderHistory = () => {
     setOrders(storedOrders);
   }, [user]);
 
+  // Function to calculate total price for an order
+  const calculateTotalPrice = (
+    items: { price: number; quantity: number }[]
+  ) => {
+    return items.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+
   return (
     <div className="container">
-      <h2>Your Order History</h2>
+      <h2 className="text-center">Your Order History</h2>
       {orders.length > 0 ? (
         orders.map((order, index) => (
           <div
@@ -51,6 +58,10 @@ const OrderHistory = () => {
                   <li>No items in this order.</li>
                 )}
               </ul>
+              <p>
+                <strong>Total Price:</strong> $
+                {calculateTotalPrice(order.items).toFixed(2)}
+              </p>
             </div>
           </div>
         ))

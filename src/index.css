@@ -41,7 +41,7 @@ footer {
 .btn {
   background-color: var(--primary-turquoise);
   color: var(--primary-gray);
-  border-radius: 50px;
+
   padding: 10px 20px;
   font-size: 16px;
   border: none;
@@ -113,7 +113,6 @@ footer {
 }
 /* Dodaj do swojego pliku CSS */
 .search-bar {
-  border-radius: 50px; /* Zaokrąglone krawędzie */
   background-color: var(--primary-gray);
   color: var(--primary-black);
   transition: border-color 0.2s, background-color 0.2s; /* Dodano przejście dla tła */
@@ -129,7 +128,6 @@ footer {
 }
 
 .btn-search {
-  border-radius: 50px; /* Zaokrąglone krawędzie */
   background-color: var(--primary-turquoise); /* Kolor tła przycisku */
   color: white; /* Kolor tekstu */
   padding: 10px 20px; /* Padding dla lepszej estetyki */

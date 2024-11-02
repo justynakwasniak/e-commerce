@@ -10,6 +10,7 @@ const Payment = () => {
 
   const [paymentMethod, setPaymentMethod] = useState("credit-card");
   const [shippingMethod, setShippingMethod] = useState("standard");
+  const [showModal, setShowModal] = useState(false);
 
   const handlePayment = () => {
     if (!user) {
@@ -36,7 +37,7 @@ const Payment = () => {
     localStorage.setItem(`orders_${userEmail}`, JSON.stringify(existingOrders));
 
     clearCart();
-    navigate("/order-history");
+    setShowModal(true); // Show the success modal
   };
 
   const getPaymentMethodName = (method: string) => {
@@ -96,6 +97,42 @@ const Payment = () => {
       <button className="btn btn-add mt-4" onClick={handlePayment}>
         Complete the transaction
       </button>
+
+      {/* Modal for success message */}
+      {showModal && (
+        <div
+          className="modal fade show"
+          style={{ display: "block" }} // Make sure modal is visible
+          tabIndex={-1}
+          role="dialog"
+        >
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Thank You!</h5>
+              </div>
+              <div className="modal-body">
+                <p>
+                  Your order has been successfully placed! Thank you for
+                  shopping with us!
+                </p>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => {
+                    setShowModal(false);
+                    navigate("/order-history"); // Navigate after closing
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

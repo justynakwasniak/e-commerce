@@ -5,8 +5,9 @@ const Footer = () => {
   return (
     <footer className="text-center text-lg-start">
       <div className="container p-4">
-        <div className="row d-flex justify-content-between">
-          <div className="col-lg-6 col-md-12 mb-4 mb-md-0 text-start">
+        <div className="row">
+          {/* About Us Section */}
+          <div className="col-12 col-md-6 mb-4 text-center text-md-start">
             <h5 className="footer-text text-uppercase">About us</h5>
             <p className="footer-text">
               This is a sample application for managing products. <br /> Thank
@@ -14,12 +15,13 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="col-lg-6 col-md-12 mb-4 mb-md-0 text-end footer-text">
+          {/* Contact Section */}
+          <div className="col-12 col-md-6 mb-4 text-center text-md-end footer-text">
             <h5 className="text-uppercase footer-text">Contact</h5>
             <ul className="list-unstyled mb-0">
               <li>
                 <a className="link-mail footer-text" href="#!">
-                  Email: kontakt@myshop.pl
+                  Email: contact@myshop.pl
                 </a>
               </li>
               <li>
@@ -27,7 +29,7 @@ const Footer = () => {
                   Telefon: 123-456-789
                 </a>
               </li>
-              {/* Ikony do mediów społecznościowych */}
+              {/* Social Media Icons */}
               <li className="mt-2">
                 <a
                   className="footer-icon"

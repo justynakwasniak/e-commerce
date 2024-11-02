@@ -23,7 +23,7 @@ const WelcomePage = () => {
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
       <h1 className="text-center mb-5">
-        Welcome back, {user ? user.firstName : "Guest"}!
+        Welcome {user ? user.firstName : "Guest"}!
       </h1>
       <ul className="sidebar-menu list-unstyled text-center">
         <li>

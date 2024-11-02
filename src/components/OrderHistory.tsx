@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
+import { Order } from "../types/product"; // Upewnij się, że ścieżka jest poprawna
 
 const OrderHistory = () => {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const { user } = useUser();
 
   useEffect(() => {
@@ -11,14 +12,15 @@ const OrderHistory = () => {
       return;
     }
 
-    const storedOrders =
-      JSON.parse(localStorage.getItem(`orders_${user.email}`)) || [];
+    const storedOrders: Order[] = JSON.parse(
+      localStorage.getItem(`orders_${user.email}`) || "[]"
+    );
     setOrders(storedOrders);
   }, [user]);
 
   return (
     <div className="container">
-      <h2 className="text-center">Your Order History</h2>
+      <h2>Your Order History</h2>
       {orders.length > 0 ? (
         orders.map((order, index) => (
           <div
@@ -41,7 +43,7 @@ const OrderHistory = () => {
                 {order.items && order.items.length > 0 ? (
                   order.items.map((item, idx) => (
                     <li key={idx}>
-                      {item.name} - Quantity: {item.quantity} - Price: $
+                      {item.name} - Quantity: {item.quantity} - Price: ${" "}
                       {item.price.toFixed(2)}
                     </li>
                   ))

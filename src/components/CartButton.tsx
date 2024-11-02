@@ -4,7 +4,10 @@ import { useCart } from "../context/useCart"; // Importuj useCart
 
 const CartButton: React.FC = () => {
   const { cart } = useCart(); // Pobierz koszyk z kontekstu
-  const itemCount = cart.reduce((total, item) => total + item.quantity, 0); // Oblicz liczbę przedmiotów w koszyku
+  const itemCount = cart.reduce(
+    (total: number, item: { quantity: number }) => total + item.quantity,
+    0
+  );
 
   return (
     <Link to="/cart" className="btn btn-primary position-relative">

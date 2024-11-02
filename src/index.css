@@ -89,16 +89,20 @@ footer {
   min-width: 1.5rem; /* Minimalna szerokość, aby kropka była zawsze okrągła */
   text-align: center; /* Wyśrodkowanie tekstu */
   border-radius: 50%;
-  top: 0.5rem;
-  left: 0.7rem; /* Okrągłe krawędzie */
+  position: absolute;
+  top: 50%;
+  transform: translate(20px, -50%);
 }
 @media (max-width: 576px) {
   .counter {
-    top: 1.2rem; /* Ustawienie kropki bliżej napisu na małych ekranach */
-    left: 0.7rem; /* Ustawienie kropki bliżej napisu na małych ekranach */
+    transform: translate(10px, -50%);
     font-size: 0.8rem; /* Zmniejszenie rozmiaru czcionki na małych ekranach */
   }
 }
+.nav-link .ms-1 {
+  margin-right: 0.5rem; /* Dodaje odstęp między tekstem a licznikiem */
+}
+
 .alert {
   text-align: center;
 }

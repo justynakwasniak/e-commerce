@@ -9,5 +9,5 @@ export const useCart = () => {
     throw new Error("useCart must be used within a CartProvider");
   }
 
-  return context; // Zwracamy pełny kontekst
+  return context;
 };

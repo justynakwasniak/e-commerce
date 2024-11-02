@@ -18,8 +18,9 @@ const Payment = () => {
     }
 
     const userEmail = user.email;
-    const existingOrders =
-      JSON.parse(localStorage.getItem(`orders_${userEmail}`)) || [];
+    const existingOrders = JSON.parse(
+      localStorage.getItem(`orders_${userEmail}`) || "[]"
+    );
 
     const paymentMethodName = getPaymentMethodName(paymentMethod);
     const shippingMethodName = getShippingMethodName(shippingMethod);

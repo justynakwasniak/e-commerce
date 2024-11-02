@@ -8,37 +8,62 @@ import { useUser } from "../context/UserContext";
 const Navbar = () => {
   const { cart } = useCart();
   const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
-  const { user, setUser } = useUser();
+  const { setUser } = useUser();
 
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const [showRegisterModal, setShowRegisterModal] = useState<boolean>(false);
 
-  // Load user data from localStorage
   useEffect(() => {
-    const savedUser = JSON.parse(localStorage.getItem("userData"));
-    if (savedUser) {
+    const savedUserData = localStorage.getItem("userData");
+    if (savedUserData) {
+      const savedUser = JSON.parse(savedUserData);
       setUser(savedUser);
     }
   }, [setUser]);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     navigate(`/products?search=${searchTerm}`);
     setSearchTerm(""); // Clear search input after submission
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
+    const firstNameElement = document.getElementById(
+      "firstName"
+    ) as HTMLInputElement | null;
+    const lastNameElement = document.getElementById(
+      "lastName"
+    ) as HTMLInputElement | null;
+    const emailElement = document.getElementById(
+      "email"
+    ) as HTMLInputElement | null;
+    const passwordElement = document.getElementById(
+      "password"
+    ) as HTMLInputElement | null;
+    const confirmPasswordElement = document.getElementById(
+      "confirmPassword"
+    ) as HTMLInputElement | null;
 
-    // Validate input fields
+    if (
+      !firstNameElement ||
+      !lastNameElement ||
+      !emailElement ||
+      !passwordElement ||
+      !confirmPasswordElement
+    ) {
+      return showAlert("Please fill in all fields.");
+    }
+
+    const firstName = firstNameElement.value;
+    const lastName = lastNameElement.value;
+    const email = emailElement.value;
+    const password = passwordElement.value;
+    const confirmPassword = confirmPasswordElement.value;
+
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
       return showAlert("Please fill in all fields.");
     }
@@ -47,8 +72,11 @@ const Navbar = () => {
       return showAlert("Passwords do not match.");
     }
 
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-    if (existingUsers.some((user) => user.email === email)) {
+    const existingUsersString = localStorage.getItem("users");
+    const existingUsers = existingUsersString
+      ? JSON.parse(existingUsersString)
+      : [];
+    if (existingUsers.some((user: { email: string }) => user.email === email)) {
       return showAlert("User already exists.");
     }
 
@@ -62,12 +90,31 @@ const Navbar = () => {
     navigate("/welcome", { state: newUser });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
-    const userData = JSON.parse(localStorage.getItem(`userData_${email}`));
+    const emailElement = document.getElementById(
+      "loginEmail"
+    ) as HTMLInputElement | null;
+    const passwordElement = document.getElementById(
+      "loginPassword"
+    ) as HTMLInputElement | null;
+
+    if (!emailElement || !passwordElement) {
+      showAlert("Please fill in all fields.");
+      return;
+    }
+
+    const email = emailElement.value;
+    const password = passwordElement.value;
+
+    if (!email || !password) {
+      showAlert("Please fill in all fields.");
+      return;
+    }
+
+    const userDataString = localStorage.getItem(`userData_${email}`);
+    const userData = userDataString ? JSON.parse(userDataString) : null;
 
     if (userData && userData.password === password) {
       setUser(userData);
@@ -84,14 +131,8 @@ const Navbar = () => {
     }
   };
 
-  const showAlert = (message) => {
+  const showAlert = (message: string): void => {
     alert(message); // Consider using a custom alert component in the future
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("userData");
-    setUser(null); // Reset user state
-    navigate("/"); // Redirect to home or login page
   };
 
   return (
@@ -222,11 +263,17 @@ const Navbar = () => {
 };
 
 // Modal Component
-const Modal = ({ title, onClose, children }) => (
+interface ModalProps {
+  title: string;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
+const Modal: React.FC<ModalProps> = ({ title, onClose, children }) => (
   <div
     className="modal fade show"
     style={{ display: "block" }}
-    tabIndex="-1"
+    tabIndex={-1}
     aria-hidden="true"
   >
     <div className="modal-dialog">
@@ -247,7 +294,13 @@ const Modal = ({ title, onClose, children }) => (
 );
 
 // Input Field Component
-const InputField = ({ id, label, type }) => (
+interface InputFieldProps {
+  id: string;
+  label: string;
+  type: string;
+}
+
+const InputField: React.FC<InputFieldProps> = ({ id, label, type }) => (
   <div className="mb-3">
     <label htmlFor={id} className="form-label">
       {label}
@@ -257,13 +310,20 @@ const InputField = ({ id, label, type }) => (
 );
 
 // Modal Footer Component
-const ModalFooter = ({ onClose, onSubmit }) => (
+// ModalFooter Component
+interface ModalFooterProps {
+  onClose: () => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void; // keep the same type for onSubmit
+}
+
+const ModalFooter: React.FC<ModalFooterProps> = ({ onClose }) => (
   <div className="modal-footer">
     <button type="button" className="btn btn-secondary" onClick={onClose}>
       Close
     </button>
-    <button type="submit" className="btn btn-primary" onClick={onSubmit}>
-      Submit
+    {/* Removed onClick from here */}
+    <button type="submit" className="btn btn-primary">
+      Login
     </button>
   </div>
 );

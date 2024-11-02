@@ -13,3 +13,17 @@ export interface Product {
 export interface CartItem extends Product {
   quantity: number;
 }
+
+export interface OrderItem {
+  name: string;
+  quantity: number;
+  price: number;
+}
+
+export interface Order {
+  date: string; // Może być typem Date, w zależności od formatu
+  paymentMethod: string;
+  shippingMethod: string;
+  items: OrderItem[];
+}
+

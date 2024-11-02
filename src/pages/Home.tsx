@@ -9,7 +9,9 @@ const Home = () => {
 
   useEffect(() => {
     const imgElement = document.querySelector(".eshop-first");
-    imgElement.classList.add("visible");
+    if (imgElement) {
+      imgElement.classList.add("visible");
+    }
 
     // Dodanie efektu bounce-in do ikon po załadowaniu komponentu
     const iconElements = document.querySelectorAll(".icon-home");

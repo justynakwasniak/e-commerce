@@ -1,24 +1,26 @@
-// ProductCard.tsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Product } from "../types/product";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useWishlist } from "../context/useWishlist";
 
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product & { quantity: number }) => void;
   style?: React.CSSProperties;
+  isWishlistPage?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   product,
   onAddToCart,
   style,
+  isWishlistPage = false,
 }) => {
   const [addedToCart, setAddedToCart] = useState(false);
-  const { addToWishlist } = useWishlist(); // Access addToWishlist function
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const isWishlisted = wishlist.some((item) => item.id === product.id);
 
   const handleAddToCart = () => {
     onAddToCart({ ...product, quantity: 1 });
@@ -30,12 +32,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const handleWishlistClick = () => {
-    addToWishlist(product); // Add product to wishlist
+    if (isWishlisted) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
   };
 
   return (
     <div
-      className="card mb-4 position-relative" // Use position-relative to allow absolute positioning of heart icon
+      className="card mb-4 position-relative"
       style={{
         width: "18rem",
         height: "350px",
@@ -52,11 +58,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
         />
       </Link>
 
-      {/* Heart icon */}
       <FontAwesomeIcon
-        icon={faHeart}
-        className="heart wishlist-icon position-absolute top-0 end-0 p-2"
-        style={{ color: "#D9534F", cursor: "pointer", fontSize: "1.5rem" }}
+        icon={isWishlistPage ? faTrash : faHeart}
+        className="heart position-absolute top-0 end-0 p-2"
+        style={{
+          color: isWishlistPage || !isWishlisted ? "#39a78d" : "#D9534F",
+          cursor: "pointer",
+          fontSize: "1.5rem",
+        }}
         onClick={handleWishlistClick}
       />
 
@@ -78,6 +87,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </h5>
         <p className="card-text">${product.price.toFixed(2)}</p>
 
+        {/* Przycisk dodania do koszyka */}
         <button className="btn btn-add" onClick={handleAddToCart}>
           Add to cart
         </button>

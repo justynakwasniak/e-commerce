@@ -1,50 +1,46 @@
-# React + TypeScript + Vite
+# E-Commerce App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+E-Commerce App is a sample web application that enables users to easily shop online. Built using React and Vite, this app allows for complete management of the shopping process, including registration, login, product browsing, adding items to the cart, and completing purchases.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Registration and Login**: Users can create an account and log into their profiles.
+- **Cart Management**: Ability to add products to the cart and manage them.
+- **Filtering and Sorting**: Users can easily filter and sort products by various criteria, making shopping more convenient.
+- **Search Bar**: An intuitive search bar allows for quick product discovery.
+- **User Profile**: Users have access to their profile, where they can view order history and manage their information.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technologies
 
-- Configure the top-level `parserOptions` property like this:
+- **React**: The main library used for building the user interface.
+- **Vite**: A tool for quickly building web applications.
+- **CSS**: For styling the user interface.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Installation
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+To run the application locally, follow these steps:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Clone the repository:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+git clone https://github.com/justynakwasniak/e-commerce
+Navigate to the project directory:
+bash
+cd e-commerce
+
+Install the dependencies:
+bash
+npm install
+
+Run the application:
+bash
+npm run dev
+
+How to Use
+Once the application is running, open your browser and go to http://localhost:3000. Register a new account or log in to start shopping. You can browse products, add them to your cart, and utilize filtering and sorting options to find the perfect items.
+
+Contributing
+I welcome any suggestions and improvements! If you have ideas or would like to add new features, please open an issue or create a pull request.
 ```

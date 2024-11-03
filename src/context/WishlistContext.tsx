@@ -1,4 +1,3 @@
-// context/WishlistContext.tsx
 import React, { createContext, useState } from "react";
 import { Product } from "../types/product";
 
@@ -18,7 +17,6 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({
   const [wishlist, setWishlist] = useState<Product[]>([]);
 
   const addToWishlist = (product: Product) => {
-    // Check if the product is already in the wishlist
     if (!wishlist.some((item) => item.id === product.id)) {
       setWishlist((prev) => [...prev, product]);
     }

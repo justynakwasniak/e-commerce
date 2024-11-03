@@ -1,4 +1,3 @@
-// context/useWishlist.ts
 import { useContext } from "react";
 import { WishlistContext } from "./WishlistContext";
 

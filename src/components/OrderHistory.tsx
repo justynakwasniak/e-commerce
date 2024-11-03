@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
-import { Order } from "../types/product"; // Ensure the path is correct
+import { Order } from "../types/product";
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -18,7 +18,6 @@ const OrderHistory = () => {
     setOrders(storedOrders);
   }, [user]);
 
-  // Function to calculate total price for an order
   const calculateTotalPrice = (
     items: { price: number; quantity: number }[]
   ) => {

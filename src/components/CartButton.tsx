@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/useCart"; // Importuj useCart
+import { useCart } from "../context/useCart";
 
 const CartButton: React.FC = () => {
-  const { cart } = useCart(); // Pobierz koszyk z kontekstu
+  const { cart } = useCart(); 
   const itemCount = cart.reduce(
     (total: number, item: { quantity: number }) => total + item.quantity,
     0

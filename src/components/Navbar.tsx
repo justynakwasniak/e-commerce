@@ -26,7 +26,7 @@ const Navbar = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     navigate(`/products?search=${searchTerm}`);
-    setSearchTerm(""); // Clear search input after submission
+    setSearchTerm("");
   };
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -132,7 +132,7 @@ const Navbar = () => {
   };
 
   const showAlert = (message: string): void => {
-    alert(message); // Consider using a custom alert component in the future
+    alert(message);
   };
 
   return (
@@ -309,11 +309,10 @@ const InputField: React.FC<InputFieldProps> = ({ id, label, type }) => (
   </div>
 );
 
-// Modal Footer Component
 // ModalFooter Component
 interface ModalFooterProps {
   onClose: () => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void; // keep the same type for onSubmit
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const ModalFooter: React.FC<ModalFooterProps> = ({ onClose }) => (
@@ -321,7 +320,7 @@ const ModalFooter: React.FC<ModalFooterProps> = ({ onClose }) => (
     <button type="button" className="btn btn-secondary" onClick={onClose}>
       Close
     </button>
-    {/* Removed onClick from here */}
+
     <button type="submit" className="btn btn-primary">
       Login
     </button>

@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import {
   createContext,
   useContext,
@@ -8,7 +7,6 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Definiowanie typów dla danych użytkownika i kontekstu
 type User = {
   firstName: string;
   lastName: string;
@@ -18,10 +16,9 @@ type User = {
 type UserContextType = {
   user: User | null;
   setUser: (user: User | null) => void;
-  handleLogout: () => void; // Dodanie handleLogout do kontekstu
+  handleLogout: () => void;
 };
 
-// Tworzenie kontekstu z domyślnymi wartościami
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
@@ -40,11 +37,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [user]);
 
-  // Funkcja do logowania
   const handleLogout = () => {
     localStorage.removeItem("userData");
     setUser(null);
-    navigate("/"); // Przekierowanie po wylogowaniu
+    navigate("/");
   };
 
   return (
@@ -54,6 +50,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {

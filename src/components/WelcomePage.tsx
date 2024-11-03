@@ -1,23 +1,21 @@
 import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useUser } from "../context/UserContext"; // Importuj useUser
+import { useUser } from "../context/UserContext";
 
 const WelcomePage = () => {
-  const { user, setUser } = useUser(); // Użyj useUser do uzyskania danych użytkownika
+  const { user, setUser } = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Jeśli nie ma użytkownika, przekieruj na stronę główną
     if (!user) {
-      navigate("/"); // Możesz również przekierować na stronę logowania
+      navigate("/");
     }
   }, [user, navigate]);
 
   const handleLogout = () => {
-    // Usuń dane użytkownika z localStorage
     localStorage.removeItem("userData");
-    setUser(null); // Resetuj stan użytkownika
-    navigate("/"); // Przekieruj na stronę główną (lub stronę logowania)
+    setUser(null);
+    navigate("/");
   };
 
   return (

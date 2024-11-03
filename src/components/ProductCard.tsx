@@ -87,7 +87,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </h5>
         <p className="card-text">${product.price.toFixed(2)}</p>
 
-        {/* Przycisk dodania do koszyka */}
         <button className="btn btn-add" onClick={handleAddToCart}>
           Add to cart
         </button>

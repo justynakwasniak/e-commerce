@@ -16,7 +16,7 @@ const Wishlist = () => {
               key={product.id}
               product={product}
               onAddToCart={addToCart}
-              isWishlistPage={true} // Pass this prop to enable wishlist-specific behavior
+              isWishlistPage={true}
               style={{ width: "15rem", margin: "1rem" }}
             />
           ))}

@@ -21,9 +21,8 @@ export interface OrderItem {
 }
 
 export interface Order {
-  date: string; // Może być typem Date, w zależności od formatu
+  date: string;
   paymentMethod: string;
   shippingMethod: string;
   items: OrderItem[];
 }
-

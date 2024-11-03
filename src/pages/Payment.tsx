@@ -37,7 +37,7 @@ const Payment = () => {
     localStorage.setItem(`orders_${userEmail}`, JSON.stringify(existingOrders));
 
     clearCart();
-    setShowModal(true); // Show the success modal
+    setShowModal(true);
   };
 
   const getPaymentMethodName = (method: string) => {

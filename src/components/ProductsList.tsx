@@ -17,17 +17,15 @@ const ProductsList: React.FC<ProductsListProps> = ({
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [filterOption] = useState<"all" | "lowPrice" | "highPrice">("all");
 
-  // Filter products based on the selected filter option
   const filteredProducts = products.filter((product) => {
     if (filterOption === "lowPrice") {
       return product.price < 50;
     } else if (filterOption === "highPrice") {
       return product.price >= 50;
     }
-    return true; // No filter
+    return true;
   });
 
-  // Sort the filtered products based on the selected sort option and direction
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     let comparison = 0;
     if (sortOption === "alphabetical") {
@@ -42,10 +40,8 @@ const ProductsList: React.FC<ProductsListProps> = ({
     <div>
       <div className="filter-options mb-5">
         {" "}
-        {/* Increased bottom margin */}
         <div className="row text-center">
           {" "}
-          {/* Centering labels */}
           <div className="col">
             <label htmlFor="sortSelect">Sort by:</label>
             <select
@@ -82,12 +78,10 @@ const ProductsList: React.FC<ProductsListProps> = ({
 
       <div className="row justify-content-center">
         {" "}
-        {/* Centering product cards */}
         {sortedProducts.length > 0 ? (
           sortedProducts.map((product) => (
             <div className="col-10 col-md-6 col-lg-4 mb-4" key={product.id}>
               {" "}
-              {/* Added margin bottom for spacing */}
               <ProductCard product={product} onAddToCart={onAddToCart} />
             </div>
           ))

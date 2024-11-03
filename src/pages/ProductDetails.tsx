@@ -18,13 +18,12 @@ const ProductDetails = () => {
   return (
     <div className="container text-center">
       {" "}
-      {/* Dodajemy klasę text-center */}
       <h1>{product.title}</h1>
       <img
         className="details"
         src={product.image}
         alt={product.title}
-        style={{ maxWidth: "300px", height: "auto" }} // Dodajemy margin: "0 auto" do wyśrodkowania
+        style={{ maxWidth: "300px", height: "auto" }}
       />
       <p>{product.description}</p>
       <h3>${product.price}</h3>

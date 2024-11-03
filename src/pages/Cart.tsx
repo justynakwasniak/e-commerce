@@ -1,35 +1,32 @@
 import { useCart } from "../context/useCart";
 import { CartItem } from "../types/product";
-import { useNavigate } from "react-router-dom"; // Importujemy useNavigate
-import { useState } from "react"; // Importujemy useState
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Cart = () => {
   const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
-  const navigate = useNavigate(); // Inicjujemy nawigację
+  const navigate = useNavigate();
 
   const totalPrice = cart.reduce(
     (total: number, item: CartItem) => total + item.price * item.quantity,
     0
   );
 
-  const [discountCode, setDiscountCode] = useState(""); // Stan do przechowywania kodu rabatowego
-  const [discountApplied, setDiscountApplied] = useState(false); // Stan do przechowywania informacji o zastosowaniu rabatu
+  const [discountCode, setDiscountCode] = useState("");
+  const [discountApplied, setDiscountApplied] = useState(false);
 
-  // Funkcja do nawigacji do strony płatności
   const handleProceedToPayment = () => {
     navigate("/payment");
   };
 
-  // Funkcja do zastosowania kodu rabatowego
   const applyDiscount = () => {
     if (discountCode === "JAVASCRIPT" && !discountApplied) {
       setDiscountApplied(true);
     } else {
-      alert("Invalid discount code or already applied."); // Komunikat o błędzie
+      alert("Invalid discount code or already applied.");
     }
   };
 
-  // Obliczanie ceny końcowej
   const finalPrice = discountApplied ? totalPrice * 0.9 : totalPrice;
 
   return (
@@ -91,7 +88,6 @@ const Cart = () => {
             <div className="row">
               <div className="col-12 col-md-3">
                 {" "}
-                {/* Użycie col-12 dla małych ekranów */}
                 <input
                   type="text"
                   className="form-control"

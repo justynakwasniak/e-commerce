@@ -1,9 +1,6 @@
-// CartContext.tsx
-
 import { createContext, useState, ReactNode } from "react";
 import { Product, CartItem } from "../types/product";
 
-// Definicja interfejsu dla CartContext
 export interface CartContextType {
   cart: CartItem[];
   addToCart: (product: Product & { quantity: number }) => void;
@@ -12,7 +9,6 @@ export interface CartContextType {
   updateQuantity: (id: number, quantity: number) => void;
 }
 
-// Tworzymy kontekst z domyślną wartością undefined
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {

@@ -12,7 +12,7 @@ import WishList from "./components/WishList";
 import AccountDetails from "./components/AccountDetails";
 import { CartProvider } from "./context/CartContext";
 import { UserProvider } from "./context/UserContext";
-import { WishlistProvider } from "./context/WishlistContext"; // Import WishlistProvider
+import { WishlistProvider } from "./context/WishlistContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import "font-awesome/css/font-awesome.css";
@@ -24,7 +24,6 @@ function App() {
         <CartProvider>
           <WishlistProvider>
             {" "}
-            {/* Wrap around the whole app for access everywhere */}
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />

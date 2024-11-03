@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import eshopImage from "../assets/eshop.avif.jpg";
-import { FaShoppingCart, FaTags, FaTruck, FaSmile } from "react-icons/fa"; // Importujemy ikony z react-icons
+import { FaShoppingCart, FaTags, FaTruck, FaSmile } from "react-icons/fa";
 
 const Home = () => {
-  const [loading, setLoading] = useState(false); // Stan dla ładowania
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,20 +13,19 @@ const Home = () => {
       imgElement.classList.add("visible");
     }
 
-    // Dodanie efektu bounce-in do ikon po załadowaniu komponentu
     const iconElements = document.querySelectorAll(".icon-home");
     iconElements.forEach((icon, index) => {
       setTimeout(() => {
         icon.classList.add("bounce-in");
-      }, index * 200); // Opóźnienie animacji dla każdej ikony
+      }, index * 200);
     });
   }, []);
 
   const handleNavigate = () => {
-    setLoading(true); // Ustawiamy "loading" na true po kliknięciu
+    setLoading(true);
     setTimeout(() => {
-      navigate("/products"); // Po krótkim czasie nawigujemy na stronę produktów
-    }, 100); // Można zwiększyć czas jeśli ładowanie trwa dłużej
+      navigate("/products");
+    }, 100);
   };
 
   return (
@@ -46,7 +45,7 @@ const Home = () => {
         src={eshopImage}
         alt="E-Shop"
         className="eshop-first img-fluid"
-        style={{ maxWidth: "100%", height: "auto", borderRadius: "50px" }} // Zmiana maxWidth na 100%
+        style={{ maxWidth: "100%", height: "auto", borderRadius: "50px" }}
       />
 
       <div className="mt-5">

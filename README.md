@@ -23,19 +23,15 @@ E-Commerce App is a sample web application that enables users to easily shop onl
 To run the application locally, follow these steps:
 
 Clone the repository:
-
-```bash
 git clone https://github.com/justynakwasniak/e-commerce
+
 Navigate to the project directory:
-bash
 cd e-commerce
 
 Install the dependencies:
-bash
 npm install
 
 Run the application:
-bash
 npm run dev
 
 How to Use
@@ -43,4 +39,7 @@ Once the application is running, open your browser and go to http://localhost:30
 
 Contributing
 I welcome any suggestions and improvements! If you have ideas or would like to add new features, please open an issue or create a pull request.
+
+```
+
 ```

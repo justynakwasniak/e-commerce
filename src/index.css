@@ -27,13 +27,13 @@ body {
 .eshop-first {
   max-width: 100%;
   height: auto;
-  opacity: 0; /* Zdjęcie początkowo niewidoczne */
-  transform: translateY(20px); /* Przesunięcie zdjęcia trochę w dół */
+  opacity: 0;
+  transform: translateY(20px);
   transition: opacity 1s ease, transform 1s ease;
 }
 .eshop-first.visible {
-  opacity: 1; /* Zdjęcie staje się widoczne */
-  transform: translateY(0); /* Zdjęcie wraca na swoje miejsce */
+  opacity: 1;
+  transform: translateY(0);
 }
 footer {
   color: var(--primary-gray);
@@ -46,13 +46,13 @@ footer {
   font-size: 16px;
   border: none;
   cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.3s ease; /* Dodajemy transition do płynnej zmiany */
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .btn:hover,
 .button.btn:hover {
   background-color: #17c79e;
-  transform: scale(1.05); /* Lekkie powiększenie przy najechaniu */
+  transform: scale(1.05);
 }
 .link-mail,
 .link-tel {
@@ -61,7 +61,7 @@ footer {
 }
 .link-mail:hover,
 .link-tel:hover {
-  text-decoration: underline; /* Podkreśla link po najechaniu */
+  text-decoration: underline;
 }
 .product-cart {
   background-color: var(--primary-gray);
@@ -79,15 +79,13 @@ footer {
 }
 
 .counter {
-  background-color: var(
-    --primary-turquoise
-  ); /* Kolor tła, możesz dostosować według potrzeb */
-  color: white; /* Kolor tekstu */
-  padding: 0.25rem 0.5rem; /* Dostosowanie paddingu */
-  font-size: 0.75rem; /* Rozmiar czcionki */
-  height: 1.5rem; /* Wysokość kropki */
-  min-width: 1.5rem; /* Minimalna szerokość, aby kropka była zawsze okrągła */
-  text-align: center; /* Wyśrodkowanie tekstu */
+  background-color: var(--primary-turquoise);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  height: 1.5rem;
+  min-width: 1.5rem;
+  text-align: center;
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -96,11 +94,11 @@ footer {
 @media (max-width: 576px) {
   .counter {
     transform: translate(10px, -50%);
-    font-size: 0.8rem; /* Zmniejszenie rozmiaru czcionki na małych ekranach */
+    font-size: 0.8rem;
   }
 }
 .nav-link .ms-1 {
-  margin-right: 0.5rem; /* Dodaje odstęp między tekstem a licznikiem */
+  margin-right: 0.5rem;
 }
 
 .alert {
@@ -111,34 +109,31 @@ footer {
   width: auto;
   border-radius: 50px;
 }
-/* Dodaj do swojego pliku CSS */
 .search-bar {
   background-color: var(--primary-gray);
   color: var(--primary-black);
-  transition: border-color 0.2s, background-color 0.2s; /* Dodano przejście dla tła */
-  padding: 10px 20px; /* Dodaj padding dla lepszej estetyki */
-  border: none; /* Dodaj przezroczyste obramowanie */
+  transition: border-color 0.2s, background-color 0.2s;
+  padding: 10px 20px;
+  border: none;
 }
 
 .search-bar:focus {
   border-color: var(--primary-turquoise);
   outline: none;
-  background-color: white; /* Zmiana tła na białe przy fokusu */
+  background-color: white;
   border: none;
 }
 
 .btn-search {
-  background-color: var(--primary-turquoise); /* Kolor tła przycisku */
-  color: white; /* Kolor tekstu */
-  padding: 10px 20px; /* Padding dla lepszej estetyki */
-  border: none; /* Usuń obramowanie */
-  transition: background-color 0.2s; /* Dodaj efekt przejścia */
+  background-color: var(--primary-turquoise);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  transition: background-color 0.2s;
 }
 
 .btn-search:hover {
-  background-color: var(
-    --primary-turquoise
-  ); /* Ciemniejszy kolor tła przy najechaniu */
+  background-color: var(--primary-turquoise);
 }
 
 .details {
@@ -149,18 +144,16 @@ footer {
   font-size: 50px;
   color: var(--primary-turquoise);
   margin-bottom: 15px;
-  opacity: 0; /* Początkowo ikony są niewidoczne */
-  transform: scale(0.5); /* Ikony są mniejsze na początku */
-  transition: all 0.5s ease-in-out; /* Płynna animacja */
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.5s ease-in-out;
 }
 
-/* Efekt bounce-in */
 .bounce-in {
-  opacity: 1; /* Ikony stają się widoczne */
-  transform: scale(1); /* Ikony wracają do pełnej wielkości */
+  opacity: 1;
+  transform: scale(1);
 }
 
-/* Dodatkowe style dla layoutu */
 .why-choose-us {
   text-align: center;
 }
@@ -186,52 +179,50 @@ footer {
   outline: none;
 }
 input:focus {
-  outline: none; /* Usuwa domyślny outline */
-  box-shadow: none; /* Usuwa cień, który może być dodany przez Bootstrap */
+  outline: none;
+  box-shadow: none;
 }
 .password-requirements {
   color: var(--primary-black);
   font-size: small;
 }
 .welcome-container {
-  margin-left: 50px; /* Odstęp od lewej krawędzi */
+  margin-left: 50px;
   margin-bottom: 100px;
 }
 
 .sidebar-menu {
-  list-style-type: none; /* Usuwa kropki z listy */
+  list-style-type: none;
   padding: 0;
 }
 
 .sidebar-menu li {
-  margin-bottom: 10px; /* Odstęp między elementami */
+  margin-bottom: 10px;
 }
 
 .sidebar-menu li a {
-  text-decoration: none; /* Usuwa podkreślenie linków */
-  color: var(--primary-gray); /* Kolor białego tekstu */
+  text-decoration: none;
+  color: var(--primary-gray);
   font-size: 18px;
-  transition: color 0.3s ease; /* Animacja zmiany koloru */
+  transition: color 0.3s ease;
 }
 
 .sidebar-menu li a:hover {
-  color: var(--primary-turquoise); /* Zmiana koloru na szary po najechaniu */
+  color: var(--primary-turquoise);
 }
-/* Styles for the modal overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
-  backdrop-filter: blur(5px); /* Apply blur effect */
-  z-index: 998; /* Ensure it appears below the modal but above other content */
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 998;
 }
 
-/* Modal styles */
 .modal {
-  z-index: 1000; /* Ensure the modal is on top */
+  z-index: 1000;
 }
 .heart {
   transition: transform 0.2s ease-in-out;
@@ -240,7 +231,7 @@ input:focus {
   transform: translateY(-3px) rotate(-10deg);
 }
 .wishlist-img {
-  width: 100%; /* Adjust the width as needed */
-  height: 120px; /* Set a smaller height */
-  object-fit: contain; /* Ensure the image scales well */
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
 }

@@ -6,7 +6,6 @@ const Footer = () => {
     <footer className="text-center text-lg-start">
       <div className="container p-4">
         <div className="row">
-          {/* About Us Section */}
           <div className="col-12 col-md-6 mb-4 text-center text-md-start">
             <h5 className="footer-text text-uppercase">About us</h5>
             <p className="footer-text">
@@ -15,7 +14,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Contact Section */}
           <div className="col-12 col-md-6 mb-4 text-center text-md-end footer-text">
             <h5 className="text-uppercase footer-text">Contact</h5>
             <ul className="list-unstyled mb-0">
@@ -29,7 +27,6 @@ const Footer = () => {
                   Telefon: 123-456-789
                 </a>
               </li>
-              {/* Social Media Icons */}
               <li className="mt-2">
                 <a
                   className="footer-icon"
